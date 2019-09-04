@@ -18,7 +18,11 @@ namespace DepartmentWeb.Controllers
         // GET: Employee
         public ActionResult Index()
         {
-            return View(db.Employees.ToList());
+            List<Employee> employees = db.Employees.ToList();
+
+            List<Employee> employees_1 = employees.Where(employee => !employee.DateOfDismissal.HasValue).ToList(); 
+
+            return View(employees_1);
         }
 
         // GET: Employee/Details/5
