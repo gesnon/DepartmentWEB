@@ -37,7 +37,7 @@ namespace DepartmentWeb.Models
         [Display(Name = "Дата увольнения")]
         public DateTime? DateOfDismissal { get; set; }
         
-        [Display(Name = "Зарплата")]
+        [Display(Name = "Зарплата"),DataType(DataType.Currency)]
         public decimal Salary { get; set; }
 
         [Display(Name = "Начальник")]

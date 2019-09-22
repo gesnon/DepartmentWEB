@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using DepartmentWeb.DAL;
@@ -71,6 +73,8 @@ namespace DepartmentWeb.Controllers
         // GET: Employee/Edit/5
         public ActionResult Edit(int? id)
         {
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +84,12 @@ namespace DepartmentWeb.Controllers
             {
                 return HttpNotFound();
             }
+
+            CultureInfo uiCultureInfo = Thread.CurrentThread.CurrentUICulture;
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "Title", employee.DepartmentID);
+            ViewBag.PositionID = new SelectList(db.Positions, "ID", "Title", employee.PositionID);
+
             return View(employee);
         }
 
@@ -88,8 +98,11 @@ namespace DepartmentWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,MiddleName,Sex,DateOfBirth,Phone,Mail,DateOfEmployment,DateOfDismissal,Salary,Boss")] Employee employee)
+        public ActionResult Edit([Bind(Include = "ID,PositionID,DepartmentID,FirstName,LastName,MiddleName,Sex,DateOfBirth,Phone,Mail,DateOfEmployment,DateOfDismissal,Salary,Boss")] Employee employee)
         {
+            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "Title", employee.DepartmentID);
+            ViewBag.PositionID = new SelectList(db.Positions, "ID", "Title", employee.PositionID);
+
             if (ModelState.IsValid)
             {
                 db.Entry(employee).State = EntityState.Modified;
