@@ -33,6 +33,7 @@ namespace DepartmentWeb.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SummOfSalary = department.Employee.Sum(employee => employee.Salary);
             return View(department);
         }
 
