@@ -127,9 +127,8 @@ namespace Logic.GameLogic
             {
                 List<Card> SetCards = SortHand.Where(q=>q.Suit==AttackCard.Suit && (int)q.Value>(int)AttackCard.Value).ToList();
                            
-                if (SetCards!=null)
+                if (SetCards.Count()!=0)
                 {
-                    SetCards.OrderBy(q=>q.Value).ToList(); 
                     
                     return SetCards.First();
                 }
@@ -139,15 +138,14 @@ namespace Logic.GameLogic
             if(round.Count()>8)
             {
                 List<Card> SetCards = SortHand.Where(q=>q.Suit==AttackCard.Suit && (int)q.Value>(int)AttackCard.Value).ToList(); // попытка покрыть не козырем
-                if (SetCards == null)
+                if (SetCards.Count()==0)
                 {
                     SetCards = SortHand.Where(q=>q.Suit==sult).ToList;
                   
                 }
-                if (SetCards != null)
+                if (SetCards.Count()!=0)
                 {
-                    SetCards.OrderBy(q=>q.Value).ToList();
-                    
+                  
                     retutn SetCards.First();             
                 }
                 
@@ -156,13 +154,12 @@ namespace Logic.GameLogic
             
             //если количество карт на столе (5-8)
              List<Card> SetCards = SortHand.Where(q=>q.Suit==AttackCard.Suit && (int)q.Value>(int)AttackCard.Value).ToList(); // попытка покрыть не козырем
-                if (SetCards == null)
+                if (SetCards.Count()==0)
                 {
                     SetCards = SortHand.Where(q=>q.Suit==sult && (int)q.Value<5).ToList
                 }
-                  if (SetCards != null)
+                  if (SetCards.Count()!=0)
                 {
-                    SetCards.OrderBy(q=>q.Value).ToList();
                     
                     retutn SetCards.First();             
                 }
